@@ -3,13 +3,13 @@ package modules
 import (
 	"fmt"
 
-	"github.com/jmoiron/sqlx"
+	"xorm.io/xorm"
 )
 
-func DbConnect() (*sqlx.DB, error) {
+func DbConnect() (*xorm.Engine, error) {
 
 	dataSoruce := `host='localhost' port=5432 user='chayanin' password='anymind' dbname='bitcoin' sslmode=false`
-	dx, err := sqlx.Connect(`postgress`, dataSoruce)
+	dx, err := xorm.NewEngine(`postgress`, dataSoruce)
 	if err != nil {
 		return nil, fmt.Errorf(err.Error())
 	}

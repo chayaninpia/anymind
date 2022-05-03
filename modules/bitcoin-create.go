@@ -3,13 +3,19 @@ package modules
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
+type BitcoinWallet struct {
+	DateTime *time.Time `xorm:"datetime" json:"datetime"`
+	Amount   *float64   `xorm:"amount" json:"amount"`
+}
+
 func BitcoinCreate(c *gin.Context) {
 
-	req := gin.H{}
+	req := BitcoinWallet{}
 	if err := c.ShouldBindJSON(&req); err != nil {
 		log.Panicln(err.Error())
 	}
@@ -18,8 +24,7 @@ func BitcoinCreate(c *gin.Context) {
 		log.Panicln(err.Error())
 	}
 
-	query := `INSERT INTO bitcoin_wallet VALUES ($1,$2)`
-	if _, err = dx.Exec(query, req[`datetime`], req[`amount`]); err != nil {
+	if _, err := dx.InsertOne(&req); err != nil {
 		log.Panicln(err.Error())
 	}
 
