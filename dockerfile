@@ -4,7 +4,7 @@ COPY ./go.mod /app/go.mod
 COPY ./go.sum /app/go.sum
 RUN go mod download
 COPY . /app
-RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/app ./cmd/anymind/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/app ./main.go
 
 FROM alpine
 RUN apk add tzdata && \
