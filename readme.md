@@ -1,12 +1,15 @@
-คำสั่ง build-app, up, down
-
 ### Build Application
+``` 
 $ make build-app
+```
 
 ### Run Application
-
+```
 $ make up
+```
 
 ### Stop Application
+```
 $ <ctrl>C
 $ make down
+```
