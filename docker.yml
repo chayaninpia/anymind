@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgresdb
+    environment:
+      POSTGRES_PASSWORD: chayanin
+      POSTGRES_USER: anymind
+    volumes:
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    ports:
+      - 9998:9998
+    restart: unless-stopped
+  adminer:
+    container_name: admin_db
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  # application:
+  #   container_name: anymind
+  #   image: anymind:latest
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - 9997:9997
