@@ -41,14 +41,14 @@ func BitcoinRead(c *gin.Context) {
 		if v.DateTime.Hour() < timeRoundHour.Hour() || v.DateTime.Hour() == timeRoundHour.Hour() {
 			btc += *v.Amount
 		} else if v.DateTime.Hour() > timeRoundHour.Hour() {
-			timeRoundHour = time.Date(timeRoundHour.Year(), timeRoundHour.Month(), timeRoundHour.Day(), timeRoundHour.Hour(), 0, 0, 0, timeRoundHour.Location())
+			timeRoundHour = time.Date(timeRoundHour.Year(), timeRoundHour.Month(), timeRoundHour.Day(), timeRoundHour.Hour()+1, 0, 0, 0, timeRoundHour.Location())
 			res = append(res, BitcoinWallet{
 				Amount:   &btc,
 				DateTime: &timeRoundHour,
 			})
 			timeRoundHour = *v.DateTime
 		} else if len(find) == k+1 {
-			timeRoundHour = time.Date(timeRoundHour.Year(), timeRoundHour.Month(), timeRoundHour.Day(), timeRoundHour.Hour(), 0, 0, 0, timeRoundHour.Location())
+			timeRoundHour = time.Date(timeRoundHour.Year(), timeRoundHour.Month(), timeRoundHour.Day(), timeRoundHour.Hour()+1, 0, 0, 0, timeRoundHour.Location())
 			res = append(res, BitcoinWallet{
 				Amount:   &btc,
 				DateTime: &timeRoundHour,
