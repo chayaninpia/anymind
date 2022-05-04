@@ -1,22 +1,12 @@
-## รันโปรเจค
-
-มีคำสั่ง build-app, up, down
+คำสั่ง build-app, up, down
 
 ### Build Application
-
-build application ให้เป็น docker image
-``` 
 $ make build-app
-```
 
 ### Run Application
-สั่ง docker-compose up เพิ่ม start PostgreSQL, adminer และ anymind
-```
+
 $ make up
-```
 
 ### Stop Application
-```
 $ <ctrl>C
 $ make down
-```
