@@ -24,6 +24,12 @@ func BitcoinRead(c *gin.Context) {
 		log.Panicln(err.Error())
 	}
 
+	if req.StartDateTime == nil {
+		log.Panicln(`end date time should be not null`)
+	}
+	if req.EndDateTime == nil {
+		log.Panicln(`start date time should be not null`)
+	}
 	dx, err := DbConnect()
 	if err != nil {
 		log.Panicln(err.Error())

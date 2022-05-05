@@ -19,12 +19,19 @@ func BitcoinCreate(c *gin.Context) {
 	if err := c.ShouldBindJSON(&req); err != nil {
 		log.Panicln(err.Error())
 	}
+
+	if req.Amount == nil {
+		log.Panicln(`amount should be not null`)
+	}
+	if req.DateTime == nil {
+		log.Panicln(`date time should be not null`)
+	}
 	dx, err := DbConnect()
 	if err != nil {
 		log.Panicln(err.Error())
 	}
 
-	if _, err := dx.InsertOne(&req); err != nil {
+	if _, err := dx.Table(`bitcoin_wallet`).InsertOne(&req); err != nil {
 		log.Panicln(err.Error())
 	}
 
