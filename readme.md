@@ -18,7 +18,6 @@ curl -X POST \
   --header 'User-Agent: chayanin' \
   --header 'Content-Type: application/json' \
   --data-raw '{
-    "datetime":"2022-05-01T00:00:00Z",
     "amount":101.1
 }'
 ```

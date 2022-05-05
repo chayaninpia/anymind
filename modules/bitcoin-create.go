@@ -9,7 +9,7 @@ import (
 )
 
 type BitcoinWallet struct {
-	DateTime *time.Time `xorm:"datetime" json:"datetime"`
+	DateTime *time.Time `xorm:"date_time" json:"date_time"`
 	Amount   *float64   `xorm:"amount" json:"amount"`
 }
 
@@ -23,9 +23,9 @@ func BitcoinCreate(c *gin.Context) {
 	if req.Amount == nil {
 		log.Panicln(`amount should be not null`)
 	}
-	if req.DateTime == nil {
-		log.Panicln(`date time should be not null`)
-	}
+	timeNow := time.Now().UTC()
+	req.DateTime = &timeNow
+
 	dx, err := DbConnect()
 	if err != nil {
 		log.Panicln(err.Error())
