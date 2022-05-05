@@ -17,10 +17,12 @@ func BitcoinCreate(c *gin.Context) {
 
 	req := BitcoinWallet{}
 	if err := c.ShouldBindJSON(&req); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 		log.Panicln(err.Error())
 	}
 
 	if req.Amount == nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, `amount should be not null`)
 		log.Panicln(`amount should be not null`)
 	}
 	if req.DateTime == nil {
@@ -30,10 +32,12 @@ func BitcoinCreate(c *gin.Context) {
 
 	dx, err := DbConnect()
 	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 		log.Panicln(err.Error())
 	}
 
 	if _, err := dx.Table(`bitcoin_wallet`).InsertOne(&req); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 		log.Panicln(err.Error())
 	}
 
