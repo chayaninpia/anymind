@@ -15,15 +15,15 @@ type BitcoinWallet struct {
 
 func BitcoinCreate(c *gin.Context) {
 
-	bitcoin_wallet := BitcoinWallet{}
-	if err := c.ShouldBindJSON(&bitcoin_wallet); err != nil {
+	req := BitcoinWallet{}
+	if err := c.ShouldBindJSON(&req); err != nil {
 		log.Panicln(err.Error())
 	}
 
-	if bitcoin_wallet.Amount == nil {
+	if req.Amount == nil {
 		log.Panicln(`amount should be not null`)
 	}
-	if bitcoin_wallet.DateTime == nil {
+	if req.DateTime == nil {
 		log.Panicln(`date time should be not null`)
 	}
 	dx, err := DbConnect()
@@ -31,7 +31,7 @@ func BitcoinCreate(c *gin.Context) {
 		log.Panicln(err.Error())
 	}
 
-	if _, err := dx.InsertOne(&bitcoin_wallet); err != nil {
+	if _, err := dx.Table(`bitcoin_wallet`).InsertOne(&req); err != nil {
 		log.Panicln(err.Error())
 	}
 
