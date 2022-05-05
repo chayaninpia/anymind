@@ -23,8 +23,10 @@ func BitcoinCreate(c *gin.Context) {
 	if req.Amount == nil {
 		log.Panicln(`amount should be not null`)
 	}
-	timeNow := time.Now().UTC()
-	req.DateTime = &timeNow
+	if req.DateTime == nil {
+		timeNow := time.Now().UTC()
+		req.DateTime = &timeNow
+	}
 
 	dx, err := DbConnect()
 	if err != nil {

@@ -18,6 +18,7 @@ curl -X POST \
   --header 'User-Agent: chayanin' \
   --header 'Content-Type: application/json' \
   --data-raw '{
+    "date_time": null,
     "amount":101.1
 }'
 ```

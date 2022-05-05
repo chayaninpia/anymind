@@ -1,18 +1,29 @@
-FROM golang:1.18 as builder
-WORKDIR /app
-COPY ./go.mod /app/go.mod
-COPY ./go.sum /app/go.sum
-RUN go mod download
-COPY . /app
-RUN CGO_ENABLED=0 GOOS=linux go build -o ./bin/app ./main.go
+FROM golang:1.18-alpine AS build_base
 
-FROM alpine
-RUN apk add tzdata && \
-    cp /usr/share/zoneinfo/Asia/Bangkok /etc/localtime && \
-    echo "Asia/Bangkok" >  /etc/timezone && \
-    apk del tzdata
-WORKDIR /root/
-COPY --from=builder /app/bin .
-ENV GIN_MODE release
-EXPOSE 9997
-CMD ./app
+RUN apk --update add git
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# We want to populate the module cache based on the go.{mod,sum} files.
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
+
+COPY . .
+
+# Build the Go app
+RUN go build -o ./out .
+
+# Start fresh from a smaller image
+FROM alpine:3.15.0
+RUN apk add ca-certificates
+
+COPY --from=build_base /app/out /app
+
+# This container exposes port 8080 to the outside world
+EXPOSE 4000
+
+# Run the binary program produced by `go install`
+CMD ["/app"]

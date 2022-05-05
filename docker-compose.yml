@@ -5,15 +5,13 @@ services:
     image: postgres:12.2
     restart: always
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: secret
-    PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: bitcoin
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     ports:
       - "5432:5432"
-      
   # application:
   #   container_name: anymind
   #   image: anymind:latest

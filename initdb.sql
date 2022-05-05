@@ -1,4 +1,6 @@
 CREATE TABLE bitcoin_wallet (
-	datetime        TIMESTAMP,
-	amount          DECIMAL,
+	id				SERIAL,
+	date_time       TIMESTAMP,
+	amount          NUMERIC,
+	PRIMARY KEY (id)
 );
