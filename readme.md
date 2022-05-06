@@ -6,8 +6,8 @@ curl -X GET \
   --header 'User-Agent: chayanin' \
   --header 'Content-Type: application/json' \
   --data-raw '{
-    "startDateTime":"2022-05-01T00:00:00Z",
-    "endDateTime":"2022-05-01T00:00:00Z"
+  "startDateTime": "2022-05-04T14:15:39+07:00",
+  "endDateTime": "2022-06-07T00:00:00+07:00"
 }'
 ```
 ### Curl Post
