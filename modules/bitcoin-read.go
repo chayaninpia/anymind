@@ -105,9 +105,5 @@ func BitcoinRead(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		`btc`:  btc,
-		`data`: res,
-		`find`: find,
-	})
+	c.JSON(http.StatusOK, res)
 }
