@@ -8,6 +8,7 @@ import (
 
 func main() {
 
+	gin.ForceConsoleColor()
 	r := gin.Default()
 
 	r.POST(`bitcoin`, modules.BitcoinCreate)
